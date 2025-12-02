@@ -18,7 +18,7 @@ export async function loginUser(payload: LoginPayload): Promise<LoginResponse> {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",  // important!
+    credentials: "include", 
     body: JSON.stringify(payload),
   });
 
@@ -28,12 +28,6 @@ export async function loginUser(payload: LoginPayload): Promise<LoginResponse> {
   }
 
   const data: LoginResponse = await res.json();
-  // Cookies.set("token", data.token, {
-  //   expires: 0.125, // 3 hours → 3/24 = 0.125 days
-  //   secure: process.env.NODE_ENV === "production",
-  //   sameSite: "strict",
-  //   path: "/",
-  // });
 
-  return data;  // Cookie is stored automatically
+  return data; 
 }
