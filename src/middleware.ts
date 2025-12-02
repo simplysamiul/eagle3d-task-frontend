@@ -1,24 +1,18 @@
+// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export default function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+export function middleware(req: NextRequest) {
+  const token = req.cookies.get("token");
+  const pathname = req.nextUrl.pathname;
 
-  const { pathname } = req.nextUrl;
-
-  // Public routes
-  const publicRoutes = ["/login"];
-
-  const isPublic = publicRoutes.includes(pathname);
-  const isAuth = !!token;
-
-  // If not authenticated & trying to access private route → redirect to login
-  if (!isAuth && !isPublic) {
+  const isLoginPage = pathname === "/login";
+  // protect everything except static, api routes etc.
+  if (!token && !isLoginPage) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // If authenticated & trying to access login route → redirect to dashboard
-  if (isAuth && isPublic) {
+  if (token && isLoginPage) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
@@ -26,7 +20,5 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|api).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|api).*)"],
 };
