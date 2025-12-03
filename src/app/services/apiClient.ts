@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://eagle3d-task-backend.vercel.app";
+export const API_BASE_URL = "https://eagle3d-assignment-backend.vercel.app";
 
 export async function apiClient(endpoint: string, options: RequestInit = {}) {
     const res = await fetch(`${API_BASE_URL}${endpoint}`, {

@@ -30,7 +30,9 @@
     "react-dom": "19.2.0",
     "react-hook-form": "^7.67.0",
     "react-icons": "^5.5.0",
+    "react-is": "^19.2.0",
     "react-redux": "^9.2.0",
+    "recharts": "^3.5.1",
     "sweetalert2": "^11.26.3",
     "tailwind-merge": "^3.4.0"
   },
