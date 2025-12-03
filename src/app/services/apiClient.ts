@@ -5,7 +5,7 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
         headers: {
             "Content-Type": "application/json",
         },
-        credentials: "include", // if backend sets cookies
+        credentials: "include",
         ...options,
     });
 

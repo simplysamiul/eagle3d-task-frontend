@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { login } from "@/app/store/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "@/app/store/hook";
+import Swal from 'sweetalert2'
 
 interface FormData {
   email: string;
@@ -19,7 +20,6 @@ export default function LoginPage() {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>();
   const dispatch = useAppDispatch();
-  // const router = useRouter();
   const { user, loading, error } = useAppSelector((state) => state.auth);
   const onSubmit = (data: FormData) => {
     dispatch(login({ email: data.email, password: data.password }))
@@ -27,6 +27,13 @@ export default function LoginPage() {
       .then(() => {
         // reset form
         reset();
+        // show login successfull message
+        Swal.fire({
+          title: "Login Successful!",
+          icon: "success",
+          confirmButtonColor: "#6A0DAD",
+          background: "#fdfdfd",
+        });
       })
       .catch((err) => {
         console.error("Login failed:", err);

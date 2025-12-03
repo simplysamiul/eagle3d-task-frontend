@@ -5,9 +5,10 @@ import { Menu, X, BarChart3, Table, LogOut } from "lucide-react";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRouter, usePathname } from "next/navigation";
 import { logout } from "../store/slices/authSlice";
+import Swal from "sweetalert2";
 
 const Sidebar = ({ onLogout }: { onLogout: () => void }) => (
   <motion.aside
@@ -72,17 +73,37 @@ export default function DashboardLayout({
   }, [pathname, router]);
 
   const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("user");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6A0DAD",
+      confirmButtonText: "Yes, Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed logout
+        dispatch(logout());
+        localStorage.removeItem("user");
+        router.replace("/login");
 
-    router.replace("/login");
+        Swal.fire({
+          title: "Logged Out",
+          text: "You have been successfully logged out.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   };
 
   return (
     <div
       className="
         min-h-screen w-full 
-        bg-gradient-to-br
+        bg-linear-to-br
         from-purple-700 via-fuchsia-600 to-indigo-700 
         p-0
       "
