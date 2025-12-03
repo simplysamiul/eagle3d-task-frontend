@@ -1,6 +1,6 @@
-# Eagle3D Task Frontend
+# Product Management Dashboard
 
-A responsive and dynamic **Next.js frontend** for Eagle3D Task, built to manage products efficiently. The application allows users to view, add, edit, and delete products seamlessly with a modern UI.
+A responsive and dynamic **Next.js frontend**, built to manage products efficiently. The application allows users to view, add, edit, and delete products seamlessly with a modern UI.
 
 ## 🔹 Features
 
